@@ -47,7 +47,7 @@ public class OrderBean implements Serializable {
             HystrixRequestContext context = HystrixRequestContext.initializeContext();
 
             try {
-                OrderCommand.Result result = new OrderCommand(services, order.asJson()).execute();
+                OrderCommand.Result result = new OrderCommand(services, order.asJson()).queue().get();
                 if(result.isSuccessful())
                     cart.clearCart();
 
